@@ -6,6 +6,7 @@ The following changes have been made to the firmware:
 * Replaced fancy roger beeps with modest single 700 or 1000 Hz beep
 * Removed blink/SOS from flashlight
 * FM radio Region is now selectable, including OIRT band. I still defaults to 76-108 but can be set with help of the adapted chirp driver.
+* reduced number of boot beeps to 4
 
 # Open re-implementation of the Quansheng UV-K5/K6/5R v2.1.27 firmware
 
