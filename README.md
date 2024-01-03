@@ -1,3 +1,12 @@
+# Adapted firmware based on the egzumer compilation as described below
+
+The following changes have been made to the firmware:
+
+* Replaced slashed zero with open zero in frequency display
+* Replaced fancy roger beeps with modest single 700 or 1000 Hz beep
+* Removed blink/SOS from flashlight
+* FM radio Region is now selectable, including OIRT band. I still defaults to 76-108 but can be set with help of the adapted chirp driver.
+
 # Open re-implementation of the Quansheng UV-K5/K6/5R v2.1.27 firmware
 
 This repository is a merge of [OneOfEleven custom firmware](https://github.com/OneOfEleven/uv-k5-firmware-custom) with [fagci spectrum analizer](https://github.com/fagci/uv-k5-firmware-fagci-mod/tree/refactor) plus my few changes.
