@@ -30,7 +30,7 @@ ENABLE_WIDE_RX                ?= 1
 ENABLE_TX_WHEN_AM             ?= 0
 ENABLE_F_CAL_MENU             ?= 0
 ENABLE_CTCSS_TAIL_PHASE_SHIFT ?= 0
-ENABLE_BOOT_BEEPS             ?= 0
+ENABLE_BOOT_BEEPS             ?= 1
 ENABLE_SHOW_CHARGE_LEVEL      ?= 0
 ENABLE_REVERSE_BAT_SYMBOL     ?= 0
 ENABLE_NO_CODE_SCAN_TIMEOUT   ?= 1
@@ -45,6 +45,9 @@ ENABLE_REDUCE_LOW_MID_TX_POWER?= 0
 ENABLE_BYP_RAW_DEMODULATORS   ?= 0
 ENABLE_BLMIN_TMP_OFF          ?= 0
 ENABLE_SCAN_RANGES            ?= 1
+# ---- MY MODS ----
+ENABLE_NO_SOS				  ?= 1
+
 
 # ---- DEBUGGING ----
 ENABLE_AM_FIX_SHOW_DATA       ?= 0
@@ -205,6 +208,7 @@ OBJCOPY = arm-none-eabi-objcopy
 SIZE = arm-none-eabi-size
 
 AUTHOR_STRING ?= EGZUMER
+VERSION_STRING ?= V20.1.P
 # the user might not have/want git installed
 # can set own version string here (max 7 chars)
 ifneq (, $(shell $(WHERE) git))
@@ -369,6 +373,9 @@ ifeq ($(ENABLE_AGC_SHOW_DATA),1)
 endif
 ifeq ($(ENABLE_FLASHLIGHT),1)
 	CFLAGS  += -DENABLE_FLASHLIGHT
+endif
+ifeq ($(ENABLE_NO_SOS),1)
+	CFLAGS  += -DENABLE_NO_SOS
 endif
 
 LDFLAGS =

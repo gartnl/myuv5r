@@ -1135,7 +1135,10 @@ static void CheckKeys(void)
 
 void APP_TimeSlice10ms(void)
 {
+
+	
 	gFlashLightBlinkCounter++;
+
 
 	#ifdef ENABLE_BOOT_BEEPS
 		if (boot_counter_10ms > 0)
@@ -1186,7 +1189,9 @@ void APP_TimeSlice10ms(void)
 #endif
 
 #ifdef ENABLE_FLASHLIGHT
+#ifndef ENABLE_NO_SOS
 	FlashlightTimeSlice();
+#endif
 #endif
 
 #ifdef ENABLE_VOX

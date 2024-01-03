@@ -28,7 +28,7 @@
 	#define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
 #endif
 
-static const uint16_t FSK_RogerTable[7] = {0xF1A2, 0x7446, 0x61A4, 0x6544, 0x4E8A, 0xE044, 0xEA84};
+//static const uint16_t FSK_RogerTable[7] = {0xF1A2, 0x7446, 0x61A4, 0x6544, 0x4E8A, 0xE044, 0xEA84};
 
 static const uint8_t DTMF_TONE1_GAIN = 65;
 static const uint8_t DTMF_TONE2_GAIN = 93;
@@ -1705,7 +1705,7 @@ void BK4819_PrepareFSKReceive(void)
 	// FSK SyncLength Selection
 	BK4819_WriteRegister(BK4819_REG_59, 0x3068);
 }
-
+/*
 void BK4819_PlayRoger(void)
 {
 	#if 0
@@ -1740,9 +1740,41 @@ void BK4819_PlayRoger(void)
 	BK4819_WriteRegister(BK4819_REG_70, 0x0000);
 	BK4819_WriteRegister(BK4819_REG_30, 0xC1FE);   // 1 1 0000 0 1 1111 1 1 1 0
 }
+*/
+
+void BK4819_PlayRoger(void)
+{
+	BK4819_PlayRogerTONE(700);
+}
+
+void BK4819_PlayRogerTONE(uint32_t tone1_Hz)
+
+{
+
+		//const uint32_t tone1_Hz = 700;
+		
+	BK4819_EnterTxMute();
+	BK4819_SetAF(BK4819_AF_MUTE);
+
+	BK4819_WriteRegister(BK4819_REG_70, BK4819_REG_70_ENABLE_TONE1 | (66u << BK4819_REG_70_SHIFT_TONE1_TUNING_GAIN));
+
+	BK4819_EnableTXLink();
+	SYSTEM_DelayMs(50);
+
+	BK4819_WriteRegister(BK4819_REG_71, scale_freq(tone1_Hz));
+
+	BK4819_ExitTxMute();
+	SYSTEM_DelayMs(100);
+	BK4819_EnterTxMute();
+
+	BK4819_WriteRegister(BK4819_REG_70, 0x0000);
+	BK4819_WriteRegister(BK4819_REG_30, 0xC1FE);   // 1 1 0000 0 1 1111 1 1 1 0
+}
 
 void BK4819_PlayRogerMDC(void)
 {
+	BK4819_PlayRogerTONE(1000);	
+	/*
 	unsigned int i;
 
 	BK4819_SetAF(BK4819_AF_MUTE);
@@ -1777,6 +1809,7 @@ void BK4819_PlayRogerMDC(void)
 	BK4819_WriteRegister(BK4819_REG_59, 0x0068);
 	BK4819_WriteRegister(BK4819_REG_70, 0x0000);
 	BK4819_WriteRegister(BK4819_REG_58, 0x0000);
+	*/
 }
 
 void BK4819_Enable_AfDac_DiscMode_TxDsp(void)

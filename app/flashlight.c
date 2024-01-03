@@ -7,6 +7,8 @@
 
 enum FlashlightMode_t  gFlashLightState;
 
+#ifndef ENABLE_NO_SOS
+
 void FlashlightTimeSlice()
 {
 	if (gFlashLightState == FLASHLIGHT_BLINK && (gFlashLightBlinkCounter & 15u) == 0) {
@@ -44,6 +46,7 @@ void FlashlightTimeSlice()
 		}
 	}
 }
+#endif
 
 void ACTION_FlashLight(void)
 {
@@ -52,11 +55,13 @@ void ACTION_FlashLight(void)
 			gFlashLightState++;
 			GPIO_SetBit(&GPIOC->DATA, GPIOC_PIN_FLASHLIGHT);
 			break;
+#ifndef 	ENABLE_NO_SOS		
 		case FLASHLIGHT_ON:
 		case FLASHLIGHT_BLINK:
 			gFlashLightState++;
 			break;
 		case FLASHLIGHT_SOS:
+#endif		
 		default:
 			gFlashLightState = 0;
 			GPIO_ClearBit(&GPIOC->DATA, GPIOC_PIN_FLASHLIGHT);

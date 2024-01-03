@@ -199,7 +199,9 @@ bool              g_CxCSS_TAIL_Found;
 #endif
 bool              g_SquelchLost;
 
+
 volatile uint16_t gFlashLightBlinkCounter;
+
 
 bool              gFlagEndTransmission;
 uint8_t           gNextMrChannel;

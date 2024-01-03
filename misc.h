@@ -279,7 +279,9 @@ extern bool                  g_CxCSS_TAIL_Found;
 // true means we are receiving signal
 extern bool                  g_SquelchLost;
 
+
 extern volatile uint16_t     gFlashLightBlinkCounter;
+
 
 extern bool                  gFlagEndTransmission;
 extern uint8_t               gNextMrChannel;

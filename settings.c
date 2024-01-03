@@ -96,14 +96,31 @@ void SETTINGS_InitEEPROM(void)
 			uint16_t SelectedFrequency;
 			uint8_t  SelectedChannel;
 			uint8_t  IsMrMode;
-			uint8_t  Padding[8];
+			// added region
+			uint8_t  Region;
+			//uint8_t  Padding[3]; // not needed if var is packed?
 		} __attribute__((packed)) FM;
+			
+		EEPROM_ReadBuffer(0x0E88, &FM, 5); // no need to read more
 
-		EEPROM_ReadBuffer(0x0E88, &FM, 8);
-		gEeprom.FM_LowerLimit = 760;
-		gEeprom.FM_UpperLimit = 1080;
+		// added bandlimits
+
+		//const uint16_t    Region_LowerLimit[] = {760,875,880,870,760};
+		//const uint16_t    Region_UpperLimit[] = {1080,950};	
+		const uint16_t    Region_LowerLimit[] = {760,875,880,870,760,650};
+		const uint16_t    Region_UpperLimit[] = {1080,1080,1080,1080,950,760};
+		//if (FM.Region > 4) FM.Region = 0;
+		if (FM.Region > 5) FM.Region = 0;		
+
+		gEeprom.FM_Region = FM.Region;
+		gEeprom.FM_LowerLimit = Region_LowerLimit[FM.Region];
+		//gEeprom.FM_UpperLimit = Region_UpperLimit[FM.Region/4];
+		gEeprom.FM_UpperLimit = Region_UpperLimit[FM.Region];		
+		//=====	
+		//gEeprom.FM_LowerLimit = 875;
+		//gEeprom.FM_UpperLimit = 1080;
 		if (FM.SelectedFrequency < gEeprom.FM_LowerLimit || FM.SelectedFrequency > gEeprom.FM_UpperLimit)
-			gEeprom.FM_SelectedFrequency = 960;
+			gEeprom.FM_SelectedFrequency = gEeprom.FM_LowerLimit;
 		else
 			gEeprom.FM_SelectedFrequency = FM.SelectedFrequency;
 
@@ -445,13 +462,15 @@ void SETTINGS_FactoryReset(bool bIsAll)
 			uint16_t Frequency;
 			uint8_t  Channel;
 			bool     IsChannelSelected;
-			uint8_t  Padding[4];
+			uint8_t  Region;
+			uint8_t  Padding[3]; // make it 8 bytes
 		} State;
 
-		memset(&State, 0xFF, sizeof(State));
+		//memset(&State, 0xFF, sizeof(State)); // this is not really needed as it does not matter what the padded bytes are
 		State.Channel           = gEeprom.FM_SelectedChannel;
 		State.Frequency         = gEeprom.FM_SelectedFrequency;
 		State.IsChannelSelected = gEeprom.FM_IsMrMode;
+		State.Region            = gEeprom.FM_Region;
 
 		EEPROM_WriteBuffer(0x0E88, &State);
 		for (i = 0; i < 5; i++)

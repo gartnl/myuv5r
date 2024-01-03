@@ -122,6 +122,7 @@ enum CHANNEL_DisplayMode_t {
 	MDF_NAME,
 	MDF_NAME_FREQ
 };
+
 typedef enum CHANNEL_DisplayMode_t CHANNEL_DisplayMode_t;
 
 typedef struct {
@@ -150,6 +151,7 @@ typedef struct {
 		uint16_t          FM_FrequencyPlaying;
 		uint16_t          FM_LowerLimit;
 		uint16_t          FM_UpperLimit;
+		uint8_t           FM_Region;
 	#endif
 
 	uint8_t               SQUELCH_LEVEL;

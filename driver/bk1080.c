@@ -67,11 +67,11 @@ void BK1080_Init(uint16_t Frequency, bool bDoScan)
 		}
 
 		BK1080_WriteRegister(BK1080_REG_05_SYSTEM_CONFIGURATION2, 0x0A5F);
-		BK1080_WriteRegister(BK1080_REG_03_CHANNEL, Frequency - 760);
+		BK1080_SetFrequency(Frequency); // call to routine saves 32 bytes
 
-		SYSTEM_DelayMs(10);
-
-		BK1080_WriteRegister(BK1080_REG_03_CHANNEL, (Frequency - 760) | 0x8000);
+		//BK1080_WriteRegister(BK1080_REG_03_CHANNEL, Frequency - 760);
+		//SYSTEM_DelayMs(10);
+		//BK1080_WriteRegister(BK1080_REG_03_CHANNEL, (Frequency - 760) | 0x8000);
 	}
 	else
 	{
@@ -108,11 +108,25 @@ void BK1080_Mute(bool Mute)
 	BK1080_WriteRegister(BK1080_REG_02_POWER_CONFIGURATION, Mute ? 0x4201 : 0x0201);
 }
 
+#define bandselect BK1080_REG_05_SYSTEM_CONFIGURATION2
+#define OIRT (BK1080_ReadRegister(bandselect)|0x00C0)
+#define CCIR ((BK1080_ReadRegister(bandselect)|0x00C0)^0x0080)
+
 void BK1080_SetFrequency(uint16_t Frequency)
 {
+	// ====== select OIRT if F below 76 MHz, else CCIR ( JP wide standard )
+	uint16_t LowF = (Frequency < 760)?640:760;
+	BK1080_WriteRegister(bandselect,(Frequency < 760)?OIRT:CCIR);
+	BK1080_WriteRegister(BK1080_REG_03_CHANNEL, Frequency - LowF);
+	SYSTEM_DelayMs(10);
+	BK1080_WriteRegister(BK1080_REG_03_CHANNEL, (Frequency - LowF) | 0x8000);	
+	// ====== end new code
+
+	/* //original code
 	BK1080_WriteRegister(BK1080_REG_03_CHANNEL, Frequency - 760);
 	SYSTEM_DelayMs(10);
 	BK1080_WriteRegister(BK1080_REG_03_CHANNEL, (Frequency - 760) | 0x8000);
+	*/
 }
 
 void BK1080_GetFrequencyDeviation(uint16_t Frequency)
