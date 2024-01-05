@@ -4,6 +4,8 @@ This is my personal variant on the excellent firmware by egzumer at https://gith
 It is not meant to compete or replace his work but has some options I wanted, but did not want to push to the community.
 The original readme is still attached.
 
+<b>If you are looking for the latest firmware I suggest to head over to egzumers repository !!</b>
+
 The following changes have been made to the firmware:
 
 * Replaced slashed zero with open zero in frequency display
