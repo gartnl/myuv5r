@@ -1,5 +1,9 @@
 # Adapted firmware based on the egzumer compilation as described below
 
+This is my personal variant on the excellent firmware by egzumer at https://github.com/egzumer/uv-k5-firmware-custom.
+It is not meant to compete or replace his work but has some options I wanted, but did not want to push to the community.
+The original readme is still attached.
+
 The following changes have been made to the firmware:
 
 * Replaced slashed zero with open zero in frequency display
@@ -8,7 +12,11 @@ The following changes have been made to the firmware:
 * FM radio Region is now selectable, including OIRT band. I still defaults to 76-108 but can be set with help of the adapted chirp driver.
 * reduced number of boot beeps to 4
 
-# Open re-implementation of the Quansheng UV-K5/K6/5R v2.1.27 firmware
+# Adapte CHIRP driver
+
+To make use of the extended FM regions you will need the adapted CHIRP driver. It can be found in the dir named 'CHIRP'
+
+# Egzumers original: Open re-implementation of the Quansheng UV-K5/K6/5R v2.1.27 firmware
 
 This repository is a merge of [OneOfEleven custom firmware](https://github.com/OneOfEleven/uv-k5-firmware-custom) with [fagci spectrum analizer](https://github.com/fagci/uv-k5-firmware-fagci-mod/tree/refactor) plus my few changes.
 
