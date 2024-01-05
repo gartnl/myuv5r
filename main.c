@@ -162,7 +162,8 @@ void Main(void)
 					break;
 				}
 #ifdef ENABLE_BOOT_BEEPS
-				if ((boot_counter_10ms % 25) == 0 && boot_counter_10ms > 126) // only 4 beeps
+				if ((boot_counter_10ms % 25) == 0 && boot_count
+				er_10ms > 126) // only 4 beeps
 					AUDIO_PlayBeep(BEEP_880HZ_40MS_OPTIONAL);
 #endif
 			}
