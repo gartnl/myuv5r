@@ -16,7 +16,7 @@ The following changes have been made to the firmware:
 
 # Adapte CHIRP driver
 
-To make use of the extended FM regions you will need the adapted CHIRP driver. It can be found in the dir named 'CHIRP'
+To make use of the extended FM regions you will need the adapted CHIRP driver. It can be found in the dir named 'CHIRP' or in the release.
 
 # Egzumers original description: 
 # Open re-implementation of the Quansheng UV-K5/K6/5R v2.1.27 firmware
