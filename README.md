@@ -18,7 +18,7 @@ The following changes have been made to the firmware:
 
 The QS sets band-limits in software. Auto-scan is performed on these limits, e.g. 76-108 (JP wide), in software too.
 This can be inconvenient in other regions. My change just sets bandlimits in software through CHIRP. 
-THe BK1080 in fact has only two bands, 65-76 and 76-108. Both are automatically supported depending on the frequency. 
+The BK1080 in fact has only two bands, 65-76 and 76-108. Both are automatically supported depending on the frequency. 
 I left the possibillity to input an out-of-region frequency in CHIRP open. This is by design.
 
 Current ranges are 76-108 (default), 87-108, 87.5-108, 88-108 and 65-76. The last one is the old OIRT band and, to be honest, of little use.
